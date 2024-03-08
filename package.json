@@ -1,0 +1,26 @@
+{
+  "name": "vega-gl",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "dist/vega-gl.cjs",
+  "module": "dist/vega-gl.esm.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@danmarshall/deckgl-typings": "^4.9.28",
+    "@tweakpane/core": "^2.0.3",
+    "tweakpane": "^4.0.3",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.8",
+    "vite-bundle-analyzer": "^0.5.0"
+  },
+  "dependencies": {
+    "deck.gl": "^8.9.33",
+    "svg-path-to-polygons": "^0.1.0",
+    "vega": "^5.26.1"
+  }
+}

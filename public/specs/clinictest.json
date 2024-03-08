@@ -1,0 +1,84 @@
+{
+    "$schema": "https://vega.github.io/schema/vega/v5.json",
+    "description": "A choropleth map depicting U.S. unemployment rates by county in 2009.",
+    "width": 960,
+    "height": 500,
+    "autosize": "none",
+    "deckView": "map",
+    "data": [
+        {
+            "name": "unemp",
+            "url": "data/unemployment.tsv",
+            "format": {
+                "type": "tsv",
+                "parse": "auto"
+            }
+        },
+        {
+            "name": "counties",
+            "url": "data/hospital-1.topo.json",
+            "format": {
+                "type": "topojson",
+                "feature": "counties"
+            }
+        }
+    ],
+    "projections": [
+        {
+            "name": "projection",
+            "type": "mercator"
+        }
+    ],
+    "scales": [
+        {
+            "name": "color",
+            "type": "quantize",
+            "domain": [
+                0,
+                0.15
+            ],
+            "range": {
+                "scheme": "blues",
+                "count": 7
+            }
+        }
+    ],
+    "legends": [
+        {
+            "fill": "color",
+            "orient": "bottom-right",
+            "title": "Unemployment",
+            "format": "0.1%"
+        }
+    ],
+    "marks": [
+        {
+            "type": "shape",
+            "from": {
+                "data": "counties"
+            },
+            "encode": {
+                "enter": {
+                    "tooltip": {
+                        "signal": "format(datum.rate, '0.1%')"
+                    },
+                    "fill": {
+                        "value": "red"
+                    }
+                },
+                "update": {},
+                "hover": {
+                    "fill": {
+                        "value": "red"
+                    }
+                }
+            },
+            "transform": [
+                {
+                    "type": "geoshape",
+                    "projection": "projection"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,329 @@
+{
+    "$schema": "https://vega.github.io/schema/vega/v5.json",
+    "width": 600,
+    "height": 400,
+    "autosize": "none",
+    "deckView": "map",
+    "data": [
+        {
+            "name": "input",
+            "url": "/data/clinic_availability.tsv",
+            "format": {
+                "parse": "auto",
+                "type": "tsv"
+            }
+        },
+        {
+            "name": "data_source",
+            "source": "input",
+            "transform": []
+        },
+        {
+            "name": "data_scatter_0_mark",
+            "source": "data_source"
+        }
+    ],
+    "marks": [
+        {
+            "type": "group",
+            "encode": {
+                "update": {
+                    "x": {
+                        "signal": "PlotOffsetLeft - RoleFacet_AxesAdjustSignalX"
+                    },
+                    "y": {
+                        "signal": "PlotOffsetTop"
+                    },
+                    "height": {
+                        "signal": "PlotHeightOut - RoleFacet_AxesAdjustSignalY"
+                    },
+                    "width": {
+                        "signal": "PlotWidthOut + RoleFacet_AxesAdjustSignalX"
+                    }
+                }
+            },
+            "marks": [
+                {
+                    "name": "scatter_0",
+                    "type": "rect",
+                    "from": {
+                        "data": "output"
+                    },
+                    "encode": {
+                        "update": {
+                            "height": {
+                                "signal": "Chart_PointScaleSignal"
+                            },
+                            "width": {
+                                "signal": "Chart_PointScaleSignal"
+                            },
+                            "z": [
+                                {
+                                    "test": "datum.__SandDance__Collapsed",
+                                    "value": 0
+                                },
+                                {
+                                    "signal": "RoleZ_Grounded ? 0 : datum[\"Population\"]"
+                                }
+                            ],
+                            "depth": [
+                                {
+                                    "test": "datum.__SandDance__Collapsed",
+                                    "value": 0
+                                },
+                                {
+                                    "signal": "RoleZ_Grounded ? datum[\"Population\"] : Chart_PointScaleSignal"
+                                }
+                            ],
+                            "x": {
+                                "field": "__SandDance__X"
+                            },
+                            "y": {
+                                "field": "__SandDance__Y"
+                            },
+                            "fill": {
+                                "scale": "scale_color",
+                                "field": "ClinicWalkability"
+                            },
+                            "opacity": {
+                                "signal": "Mark_OpacitySignal"
+                            }
+                        }
+                    }
+                }
+            ],
+            "data": [
+                {
+                    "name": "output",
+                    "source": "data_scatter_0_mark",
+                    "transform": [
+                        {
+                            "type": "formula",
+                            "expr": "datum[\"Longitude\"]",
+                            "as": "__SandDance__X"
+                        },
+                        {
+                            "type": "formula",
+                            "expr": "-datum[\"Latitude\"]",
+                            "as": "__SandDance__Y"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "signals": [
+        {
+            "name": "RoleZ_ProportionSignal",
+            "value": 0.6,
+            "bind": {
+                "name": "Z scale proportion to Y",
+                "debounce": 50,
+                "input": "range",
+                "min": 0.2,
+                "max": 2,
+                "step": 0.1
+            }
+        },
+        {
+            "name": "RoleZ_HeightSignal",
+            "update": "ViewportHeight * RoleZ_ProportionSignal"
+        },
+        {
+            "name": "Text_ScaleSignal",
+            "value": 1.2,
+            "bind": {
+                "name": "Text scale",
+                "debounce": 50,
+                "input": "range",
+                "min": 0.5,
+                "max": 2,
+                "step": 0.1
+            }
+        },
+        {
+            "name": "Text_SizeSignal",
+            "update": "Text_ScaleSignal * 10"
+        },
+        {
+            "name": "Text_TitleSizeSignal",
+            "update": "Text_ScaleSignal * 15"
+        },
+        {
+            "name": "Text_AngleXSignal",
+            "value": 30,
+            "bind": {
+                "name": "X axis text angle",
+                "debounce": 50,
+                "input": "range",
+                "min": 0,
+                "max": 90,
+                "step": 1
+            }
+        },
+        {
+            "name": "Text_AngleYSignal",
+            "value": 0,
+            "bind": {
+                "name": "Y axis text angle",
+                "debounce": 50,
+                "input": "range",
+                "min": -90,
+                "max": 0,
+                "step": 1
+            }
+        },
+        {
+            "name": "Mark_OpacitySignal",
+            "value": 1,
+            "bind": {
+                "name": "Mark opacity",
+                "debounce": 50,
+                "input": "range",
+                "min": 0.1,
+                "max": 1,
+                "step": 0.05
+            }
+        },
+        {
+            "name": "MinCellWidth",
+            "update": "140"
+        },
+        {
+            "name": "MinCellHeight",
+            "update": "180"
+        },
+        {
+            "name": "ViewportHeight",
+            "update": "max(MinCellHeight, 942)"
+        },
+        {
+            "name": "ViewportWidth",
+            "update": "max(MinCellWidth, 1422)"
+        },
+        {
+            "name": "PlotOffsetLeft",
+            "update": "0"
+        },
+        {
+            "name": "PlotOffsetTop",
+            "update": "0"
+        },
+        {
+            "name": "PlotOffsetBottom",
+            "update": "0"
+        },
+        {
+            "name": "PlotOffsetRight",
+            "update": "0"
+        },
+        {
+            "name": "RoleFacet_AxesAdjustSignalX",
+            "update": "2"
+        },
+        {
+            "name": "RoleFacet_AxesAdjustSignalY",
+            "update": "0"
+        },
+        {
+            "name": "PlotHeightIn",
+            "update": "ViewportHeight - PlotOffsetBottom + RoleFacet_AxesAdjustSignalY"
+        },
+        {
+            "name": "PlotWidthIn",
+            "update": "ViewportWidth - PlotOffsetLeft - PlotOffsetRight"
+        },
+        {
+            "name": "PlotHeightOut",
+            "update": "PlotHeightIn"
+        },
+        {
+            "name": "PlotWidthOut",
+            "update": "PlotWidthIn"
+        },
+        {
+            "name": "height",
+            "update": "PlotOffsetTop + PlotHeightOut + PlotOffsetBottom - RoleFacet_AxesAdjustSignalY"
+        },
+        {
+            "name": "width",
+            "update": "PlotWidthOut + PlotOffsetLeft + PlotOffsetRight"
+        },
+        {
+            "name": "RoleColor_BinCountSignal",
+            "value": 7,
+            "bind": {
+                "name": "Color bin count",
+                "input": "range",
+                "min": 1,
+                "max": 20,
+                "step": 1
+            }
+        },
+        {
+            "name": "RoleColor_ReverseSignal",
+            "value": true,
+            "bind": {
+                "name": "Color reverse",
+                "input": "checkbox"
+            }
+        },
+        {
+            "name": "Chart_PointScaleSignal",
+            "value": 10,
+            "bind": {
+                "name": "Point scale",
+                "debounce": 50,
+                "input": "range",
+                "min": 1,
+                "max": 10,
+                "step": 1
+            }
+        },
+        {
+            "name": "RoleZ_Grounded",
+            "value": true,
+            "bind": {
+                "name": "Z grounded",
+                "input": "checkbox"
+            }
+        }
+    ],
+    "legends": [
+        {
+            "orient": "none",
+            "title": "ClinicWalkability",
+            "fill": "scale_color",
+            "encode": {
+                "symbols": {
+                    "update": {
+                        "shape": {
+                            "value": "square"
+                        }
+                    }
+                }
+            },
+            "type": "symbol",
+            "format": "~r"
+        }
+    ],
+    "scales": [
+        {
+            "name": "scale_color",
+            "type": "quantile",
+            "domain": {
+                "data": "data_source",
+                "field": "ClinicWalkability"
+            },
+            "range": {
+                "scheme": "redyellowgreen",
+                "count": {
+                    "signal": "RoleColor_BinCountSignal"
+                }
+            },
+            "reverse": {
+                "signal": "RoleColor_ReverseSignal"
+            }
+        }
+    ]
+}
