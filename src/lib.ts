@@ -1,5 +1,5 @@
 import * as vega from 'vega';
-import { Deck, Layer, OrthographicView, OrbitView, MapView } from '@deck.gl/core/typed';
+import { Deck, Layer, OrthographicView, MapView } from '@deck.gl/core/typed';
 import { CubeGeometry } from '@luma.gl/core';
 import { ScatterplotLayer, LineLayer, TextLayer, PolygonLayer } from '@deck.gl/layers/typed';
 import { SimpleMeshLayer } from '@deck.gl/mesh-layers/typed';
@@ -26,6 +26,8 @@ export class DeckGlRenderer extends vega.Renderer {
   
   constructor (imageLoader: any) {
     super(imageLoader);
+
+    this.viewType = 'ortho';
   }
 
   public initialize(el: HTMLElement, width: number, height: number, origin: readonly number[]): this {
@@ -141,7 +143,6 @@ export class DeckGlRenderer extends vega.Renderer {
   }
 
   private createLayers(ctx: RenderContext, items: vega.SceneGroup[] | vega.Scene[], project: ProjectFn) {
-    const viewType = this.viewType;
     for (const item of items) {
       ctx.layerIndex += 1;
       const layerSuffix = `:${ctx.layerIndex}`;
