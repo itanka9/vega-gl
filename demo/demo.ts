@@ -1,6 +1,6 @@
 import './style.css'
 import * as vega from 'vega';
-import { DeckGlRenderer } from '../src/lib';
+import { DeckGlRenderer, patchCanvasHandler } from '../src/lib';
 import {Pane} from 'tweakpane';
 
 // Setting up vega
@@ -28,7 +28,10 @@ let view: vega.View;
 
 pane
   .addBinding(params, 'case', { controller: 'list', options: Object.fromEntries(cases.map(c => [c,c])) })
-  .on('change', ev => showSpec(ev.value));
+  .on('change', ev => {
+    setBindingsVisible(false);
+    showSpec(ev.value);
+  });
 
 function showSpec(spec: string) {
   fetch(`./specs/${spec}.json`)
@@ -44,12 +47,17 @@ function showSpec(spec: string) {
 
         (view as any)._renderer.setView(spec.deckView);
         view.runAsync().then(() => {
-          const bindingsForm = document.querySelector('.vega-bindings') as HTMLFormElement;
-          if (bindingsForm) {
-            bindingsForm.style.display = bindingsForm.children.length ? 'block' : 'none';
-          }
+          setBindingsVisible(true)
         });
       });
+}
+
+function setBindingsVisible(visible?: boolean) {
+  const bindingsForm = document.querySelector('.vega-bindings') as HTMLFormElement;
+  if (bindingsForm) {
+    const hasChildren = bindingsForm.children.length > 0;
+    bindingsForm.style.display = hasChildren && visible ? 'block' : 'none';
+  }
 }
 
 showSpec(cases[0]);

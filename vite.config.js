@@ -7,6 +7,6 @@ export default defineConfig({
       entry: resolve(__dirname, 'src/lib.ts'),
       fileName: 'vega-gl',
       formats: ['esm', 'cjs']
-    },
+    }
   }
 })

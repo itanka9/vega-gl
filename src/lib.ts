@@ -33,6 +33,9 @@ export class DeckGlRenderer extends vega.Renderer {
   public initialize(el: HTMLElement, width: number, height: number, origin: readonly number[]): this {
     let canvas = null;
 
+    // We should patch vega handler, to avoid
+    patchCanvasHandler();
+
     if (el instanceof HTMLCanvasElement) {
       canvas = el;
     } else {
@@ -303,6 +306,14 @@ export class DeckGlRenderer extends vega.Renderer {
     }
   }
 }
+
+function patchCanvasHandler() {
+  const fakeCanvas = document.createElement('canvas');
+  (vega.CanvasHandler as any).prototype.context = function() {
+    return fakeCanvas.getContext('2d');
+  };
+}
+
 
 function getProjection(scene: vega.SceneGroup, parent: ProjectFn) {
   const { x, y } = scene;
