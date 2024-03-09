@@ -1,5 +1,10 @@
 {
   "name": "vega-gl",
+  "description": "Deck.gl powered rendering for vega specs",
+  "author": {
+    "name": "Michel Beloshitsky",
+    "email": "itano@yandex.ru"
+  },
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -8,7 +13,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "build:demo": "vite build demo",
+    "build:demo": "vite build demo && cp -aR public/* demo/dist/",
     "preview": "vite preview"
   },
   "devDependencies": {
