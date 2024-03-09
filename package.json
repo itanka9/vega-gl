@@ -16,7 +16,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "build:demo": "cp -aR public/* demo/dist/ && vite build demo --base=./",
+    "build:demo": "vite build demo --base=./ && cp -aR public/* demo/dist/",
     "release": "npm run build && npm publish"
   },
   "devDependencies": {
