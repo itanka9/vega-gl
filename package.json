@@ -6,7 +6,7 @@
     "email": "itano@yandex.ru"
   },
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "main": "dist/vega-gl.cjs",
   "module": "dist/vega-gl.esm.js",
