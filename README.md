@@ -1,5 +1,7 @@
 # Vega-gl - display data from vega specs via deck.gl
 
+Hardly working on: not all vega marks and features is supported for now.
+
 ```js
 import { DeckGlRenderer } from 'vega-gl';
 
