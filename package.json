@@ -13,7 +13,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "build:demo": "cp -aR public/* demo/dist/ && vite build demo --base=./"
+    "build:demo": "cp -aR public/* demo/dist/ && vite build demo --base=./",
+    "release": "npm run build && npm publish"
   },
   "devDependencies": {
     "@danmarshall/deckgl-typings": "^4.9.28",
