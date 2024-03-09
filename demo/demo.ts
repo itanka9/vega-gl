@@ -31,7 +31,7 @@ pane
   .on('change', ev => showSpec(ev.value));
 
 function showSpec(spec: string) {
-  fetch(`/specs/${spec}.json`)
+  fetch(`./specs/${spec}.json`)
       .then(r=>r.json())
       .then(spec => {
         if (view) {
