@@ -5,11 +5,14 @@
     "name": "Michel Beloshitsky",
     "email": "itano@yandex.ru"
   },
-  "private": true,
   "version": "0.1.0",
   "type": "module",
   "main": "dist/vega-gl.cjs",
   "module": "dist/vega-gl.esm.js",
+  "files": [
+    "dist/vega-gl.esm.js",
+    "dist/vega-gl.cjs"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
