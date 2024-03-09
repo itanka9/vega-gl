@@ -7,7 +7,7 @@
     "data": [
         {
             "name": "input",
-            "url": "/data/clinic_availability.tsv",
+            "url": "data/clinic_availability.tsv",
             "format": {
                 "parse": "auto",
                 "type": "tsv"
